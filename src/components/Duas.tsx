@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Dua {
@@ -26,7 +26,7 @@ const categories = [
 const Duas: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [duas, setDuas] = useState<Dua[]>([
+  const [duas] = useState<Dua[]>([
     {
       id: 1,
       category: "Ramadan",
