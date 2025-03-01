@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center text-xl font-bold">
-          <span className="mr-2 text-2xl">🌙</span> Ramadan <span className="text-green-700">Kareem</span>
+          <span className="mr-2 text-2xl">🌙</span> Ramadan <span className="text-[#FFD700]">Kareem</span>
         </Link>
 
         {/* Desktop Menu */}
