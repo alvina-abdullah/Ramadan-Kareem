@@ -26,7 +26,7 @@ const categories = [
 const Duas: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [duas, setDuas] = useState<Dua[]>([
+  const [duas] = useState<Dua[]>([
     {
       id: 1,
       category: "Ramadan",
