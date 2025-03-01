@@ -22,23 +22,6 @@ const StarIcon = () => (
   </svg>
 );
 
-const features = [
-  {
-    title: "Prayer Times",
-    description: "Accurate prayer times and Sehri/Iftar schedule for your location",
-    icon: <CalendarIcon />,
-  },
-  {
-    title: "Daily Duas",
-    description: "Collection of essential duas for Ramadan with translations",
-    icon: <BookIcon />,
-  },
-  {
-    title: "Spiritual Guidance",
-    description: "Daily reminders and Islamic teachings for Ramadan",
-    icon: <StarIcon />,
-  },
-];
 
 export default function Home() {
   return (
