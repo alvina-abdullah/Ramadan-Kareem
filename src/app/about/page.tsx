@@ -105,9 +105,10 @@ const About: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Contact Us</h2>
-          <p className="text-lg mb-4">
-            Have questions or suggestions? We'd love to hear from you.
-          </p>
+<p className="text-lg mb-4">
+  Have questions or suggestions? We&apos;d love to hear from you.
+</p>
+
           <a 
             href="mailto:contact@example.com"
             className="inline-block bg-white text-emerald-800 px-8 py-3 rounded-full font-semibold hover:bg-emerald-100 transition-colors"
