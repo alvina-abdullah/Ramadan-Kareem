@@ -21,45 +21,46 @@ const Quran: React.FC = () => {
   const [surahs, setSurahs] = useState<Surah[]>([]);
   const [selectedSurah, setSelectedSurah] = useState<number | null>(null);
   const [ayahs, setAyahs] = useState<Ayah[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     fetchSurahs();
   }, []);
 
   useEffect(() => {
-    if (selectedSurah) {
+    if (selectedSurah !== null) {
       fetchAyahs(selectedSurah);
     }
   }, [selectedSurah]);
 
-  const fetchSurahs = async () => {
-    try {
-      const response = await fetch("https://api.alquran.cloud/v1/surah");
-      const data = await response.json();
-      setSurahs(data.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching surahs:", error);
-      setLoading(false);
-    }
-  };
+const fetchSurahs = async () => {
+  try {
+    const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('http://api.alquran.cloud/v1/surah'));
+    const data = await response.json();
+    setSurahs(JSON.parse(data.contents).data);
+    setLoading(false);
+  } catch (error) {
+    console.error('Error fetching surahs:', error);
+    setLoading(false);
+  }
+};
 
-  const fetchAyahs = async (surahNumber: number) => {
+
+  const fetchAyahs = async (surahNumber: number): Promise<void> => {
     try {
       const [arabicResponse, translationResponse] = await Promise.all([
         fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`),
         fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/en.asad`)
       ]);
 
-      const arabicData = (await arabicResponse.json()) as { data: { ayahs: { numberInSurah: number; text: string }[] } };
-      const translationData = (await translationResponse.json()) as { data: { ayahs: { text: string }[] } };
+      const arabicData: { data: { ayahs: { numberInSurah: number; text: string }[] } } = await arabicResponse.json();
+      const translationData: { data: { ayahs: { text: string }[] } } = await translationResponse.json();
 
       const combinedAyahs: Ayah[] = arabicData.data.ayahs.map((ayah, index) => ({
         number: ayah.numberInSurah,
         text: ayah.text,
-        translation: translationData.data.ayahs[index].text
+        translation: translationData.data.ayahs[index]?.text || "Translation not available"
       }));
 
       setAyahs(combinedAyahs);
@@ -96,7 +97,7 @@ const Quran: React.FC = () => {
             placeholder="Search Surah..."
             className="w-full p-4 rounded-lg bg-emerald-950/40 text-white placeholder-emerald-300/50 border border-emerald-700/50 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20 transition-all shadow-lg backdrop-blur-sm"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
           />
         </motion.div>
 
