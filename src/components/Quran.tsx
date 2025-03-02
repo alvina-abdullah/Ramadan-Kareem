@@ -55,8 +55,8 @@ const Quran: React.FC = () => {
 
       const arabicData = await arabicResponse.json();
       const translationData = await translationResponse.json();
+const combinedAyahs = arabicData.data.ayahs.map((ayah: { numberInSurah: number; text: string }, index: number) => ({
 
-      const combinedAyahs = arabicData.data.ayahs.map((ayah: any, index: number) => ({
         number: ayah.numberInSurah,
         text: ayah.text,
         translation: translationData.data.ayahs[index].text
