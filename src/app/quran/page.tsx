@@ -33,18 +33,19 @@ const Quran: React.FC = () => {
       fetchAyahs(selectedSurah);
     }
   }, [selectedSurah]);
+const fetchSurahs = async () => {
+  try {
+    const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('http://api.alquran.cloud/v1/surah'));
+    const data = await response.json();
+    setSurahs(JSON.parse(data.contents).data);
+    setLoading(false);
+  } catch (error) {
+    console.error('Error fetching surahs:', error);
+    setLoading(false);
+  }
+};
 
-  const fetchSurahs = async () => {
-    try {
-      const response = await fetch('http://api.alquran.cloud/v1/surah');
-      const data = await response.json();
-      setSurahs(data.data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching surahs:', error);
-      setLoading(false);
-    }
-  };
+
 
   const fetchAyahs = async (surahNumber: number) => {
     try {
